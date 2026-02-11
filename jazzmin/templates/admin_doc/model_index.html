@@ -22,7 +22,7 @@
     <div class="col-4 col-sm-2">
         <div class="nav flex-column nav-tabs h-100" id="tabs-tab" role="tablist" aria-orientation="vertical">
             {% for group in grouped_models %}
-                <a class="nav-link" id="tabs-{{ group.grouper.label }}-control" data-toggle="pill" href="#tabs-{{ group.grouper.label }}" role="tab" aria-controls="tabs-{{ group.grouper.label }}" aria-selected="true">
+                <a class="nav-link" id="tabs-{{ group.grouper.label }}-control" data-bs-toggle="pill" href="#tabs-{{ group.grouper.label }}" role="tab" aria-controls="tabs-{{ group.grouper.label }}" aria-selected="true">
                     <h6>{{ group.grouper.verbose_name }}</h6>
                 </a>
             {% endfor %}

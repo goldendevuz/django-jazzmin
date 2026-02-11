@@ -13,7 +13,7 @@
     }
 
     function handleMenu() {
-        $('[data-widget=pushmenu]').bind('click', function () {
+        $('[data-widget=pushmenu], [data-lte-toggle=sidebar]').on('click', function () {
             const menuClosed = getCookie('jazzy_menu') === 'closed';
             if (!menuClosed) {
                 setCookie('jazzy_menu', 'closed');

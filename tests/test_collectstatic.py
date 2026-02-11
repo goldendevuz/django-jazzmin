@@ -1,11 +1,7 @@
 """
-Regression test for issue #651: Bootswatch CSS files must not reference
-missing .map files, or collectstatic fails (e.g. with Whitenoise).
-
-The failure is reproduced when Django's ManifestStaticFilesStorage
-post-processes a CSS file that contains sourceMappingURL=bootstrap.min.css.map:
-it tries to resolve the referenced file for cache-busting, and raises
-ValueError("The file '...bootstrap.min.css.map' could not be found").
+Regression test for issue #651: Bootswatch CSS files reference
+sourceMappingURL=bootstrap.min.css.map; the .map files must be present
+or collectstatic fails (e.g. with Whitenoise).
 """
 
 import os
@@ -57,12 +53,10 @@ def test_collectstatic_succeeds_with_manifest_storage(tmp_path):
         call_command("collectstatic", "--noinput", verbosity=0)
 
 
-def test_bootswatch_css_has_no_source_map_reference():
+def test_bootswatch_css_map_files_exist_when_referenced():
     """
-    Bootswatch CSS files must not reference bootstrap.min.css.map.
-
-    Referencing a missing file causes collectstatic to fail when using
-    storage backends that validate CSS references (e.g. Whitenoise).
+    When a Bootswatch CSS references bootstrap.min.css.map, the .map file
+    must exist in the same directory so collectstatic succeeds (see #651).
     """
     import jazzmin
 
@@ -71,13 +65,14 @@ def test_bootswatch_css_has_no_source_map_reference():
     if not os.path.isdir(bootswatch_dir):
         pytest.skip("Bootswatch static dir not found")
 
-    bad_ref = "sourceMappingURL=bootstrap.min.css.map"
+    ref = "sourceMappingURL=bootstrap.min.css.map"
     for name in os.listdir(bootswatch_dir):
-        css_path = os.path.join(bootswatch_dir, name, "bootstrap.min.css")
+        theme_dir = os.path.join(bootswatch_dir, name)
+        css_path = os.path.join(theme_dir, "bootstrap.min.css")
+        map_path = os.path.join(theme_dir, "bootstrap.min.css.map")
         if not os.path.isfile(css_path):
             continue
         with open(css_path, encoding="utf-8") as f:
             content = f.read()
-        assert bad_ref not in content, (
-            f"{css_path} contains {bad_ref!r}; remove it so collectstatic does not fail (see #651)"
-        )
+        if ref in content and not os.path.isfile(map_path):
+            pytest.fail(f"{css_path} references bootstrap.min.css.map but {map_path} is missing (see #651)")

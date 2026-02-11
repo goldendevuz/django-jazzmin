@@ -22,7 +22,7 @@ JAZZMIN_SETTINGS = {
     # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
     "login_logo": None,
 
-    # Logo to use for login form in dark themes (defaults to login_logo)
+    # Logo to use when color scheme is dark (defaults to login_logo)
     "login_logo_dark": None,
 
     # CSS classes that are applied to the logo above
