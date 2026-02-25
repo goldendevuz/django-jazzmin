@@ -19,10 +19,8 @@
         <a href="{% url opts|admin_urlname:'changelist' %}" class="btn {{ jazzmin_ui.button_classes.secondary }}">{% trans 'Close' %}</a>
     {% endif %}
     {% if show_delete_link and original %}
-        <div class="ms-auto">
-            {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
-            <a href="{% add_preserved_filters delete_url %}" class="btn {{ jazzmin_ui.button_classes.danger }}">{% trans "Delete" %}</a>
-        </div>
+        {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
+        <a href="{% add_preserved_filters delete_url %}" class="btn {{ jazzmin_ui.button_classes.danger }}">{% trans "Delete" %}</a>
     {% endif %}
 
     {% block extra-actions %}{% endblock %}

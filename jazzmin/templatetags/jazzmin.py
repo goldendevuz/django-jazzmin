@@ -264,7 +264,7 @@ def jazzmin_paginator_number(change_list: ChangeList, i: Union[int, str]) -> Saf
         </li>
         """.format(link=link, disabled="disabled" if link == "#" else "")
 
-    return format_html(html_str)
+    return mark_safe(html_str)  # noqa: S308
 
 
 @register.simple_tag

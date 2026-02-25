@@ -78,7 +78,8 @@ version-prerelease: ## Bump to next prerelease (for pre-release workflow)
 
 
 download_bootswatch_css: ## Download the Bootswatch CSS files
-	for theme in (default brite cerulean cosmo cyborg darkly flatly journal litera lumen lux materia minty morph pulse quartz sandstone simplex sketchy slate solar spacelab superhero united vapor yeti zephyr); do
-		curl -s https://bootswatch.com/5/$${theme}/bootstrap.min.css -o jazzmin/static/vendor/bootswatch/$${theme}/bootstrap.min.css
-		curl -s https://bootswatch.com/5/$${theme}/bootstrap.min.css.map -o jazzmin/static/vendor/bootswatch/$${theme}/bootstrap.min.css.map
+	for theme in default brite cerulean cosmo cyborg darkly flatly journal litera lumen lux materia minty morph pulse quartz sandstone simplex sketchy slate solar spacelab superhero united vapor yeti zephyr; do \
+		mkdir -p jazzmin/static/vendor/bootswatch/$${theme}; \
+		curl -s https://bootswatch.com/5/$${theme}/bootstrap.min.css -o jazzmin/static/vendor/bootswatch/$${theme}/bootstrap.min.css; \
+		sed -i '/sourceMappingURL/d' jazzmin/static/vendor/bootswatch/$${theme}/bootstrap.min.css; \
 	done

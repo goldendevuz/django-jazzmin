@@ -52,7 +52,7 @@
                     {% endif %}
 
                     {% if cl.search_fields %}
-                        <input class="form-control" style="width: auto; min-width: 250px;" type="text" name="{{ search_var }}" value="{{ cl.query }}" id="searchbar"
+                        <input class="form-control" style="width: auto; min-width: 250px;" type="text" name="q" value="{{ cl.query }}" id="searchbar"
                             {% if cl.search_help_text %} placeholder="{{ cl.search_help_text }}{% endif %}">
                     {% endif %}
 
@@ -72,7 +72,7 @@
                         {% endif %}
                         {% admin_extra_filters cl as extra_filters %}
                         {% for pair in extra_filters.items %}
-                            {% if pair.0 != search_var %}<input type="hidden" name="{{ pair.0 }}" value="{{ pair.1 }}">{% endif %}
+                            {% if pair.0 != "q" %}<input type="hidden" name="{{ pair.0 }}" value="{{ pair.1 }}">{% endif %}
                         {% endfor %}
                     {% endif %}
                 </form>

@@ -235,7 +235,7 @@ JAZZMIN_SETTINGS: Dict[str, Any] = {
 if not DEBUG and not TEST:
     JAZZMIN_SETTINGS["welcome_sign"] = "Username: test@test.com, Password: test (Data resets nightly)"
 
-JAZZMIN_UI_TWEAKS = {
+AJAZZMIN_UI_TWEAKS = {
     "navbar_small_text": False,
     "footer_small_text": False,
     "body_small_text": False,
