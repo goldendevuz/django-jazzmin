@@ -21,7 +21,7 @@ from django.template import Context, Library
 from django.template.defaultfilters import capfirst
 from django.template.loader import get_template
 from django.templatetags.static import static
-from django.utils.html import escape, format_html
+from django.utils.html import escape
 from django.utils.safestring import SafeText, mark_safe
 from django.utils.text import get_text_list, slugify
 from django.utils.translation import gettext
@@ -316,7 +316,9 @@ def jazzmin_list_filter(cl: ChangeList, spec: ListFilter) -> SafeText:
                 choice["value"] = value
             i += 1
 
-    return tpl.render({"field_name": field_key, "title": getattr(spec, "title", None) or "", "choices": choices, "spec": spec})
+    return tpl.render(
+        {"field_name": field_key, "title": getattr(spec, "title", None) or "", "choices": choices, "spec": spec}
+    )
 
 
 @register.simple_tag
