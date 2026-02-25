@@ -84,6 +84,8 @@ DEFAULT_SETTINGS: Dict[str, Any] = {
     "use_google_fonts_cdn": True,
     # Whether to show the UI customizer on the sidebar
     "show_ui_builder": False,
+    # Whether to show the theme chooser dropdown in the top navbar
+    "show_theme_chooser": False,
     ###############
     # Change view #
     ###############
@@ -345,6 +347,7 @@ def get_ui_tweaks() -> Dict[str, Any]:
         "brand_classes": classes("brand_small_text", "brand_colour"),
         "footer_classes": classes("footer_small_text"),
         "button_classes": tweaks["button_classes"],
+        "theme_list": list(THEMES.keys()),
     }
 
     return ret

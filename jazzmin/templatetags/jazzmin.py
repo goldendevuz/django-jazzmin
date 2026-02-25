@@ -316,7 +316,7 @@ def jazzmin_list_filter(cl: ChangeList, spec: ListFilter) -> SafeText:
                 choice["value"] = value
             i += 1
 
-    return tpl.render({"field_name": field_key, "title": spec.title, "choices": choices, "spec": spec})
+    return tpl.render({"field_name": field_key, "title": getattr(spec, "title", None) or "", "choices": choices, "spec": spec})
 
 
 @register.simple_tag

@@ -1,7 +1,7 @@
 CYAN ?= \033[0;36m
 COFF ?= \033[0m
 
-.PHONY: deps lint check test help test_app test_user seed_data seed_small seed_large build publish publish-test publish-test-only version
+.PHONY: deps lint check test help test_app test_user build publish publish-test publish-test-only version
 .EXPORT_ALL_VARIABLES:
 
 .DEFAULT: help
@@ -36,21 +36,6 @@ test_app: ## Run the test app
 test_user: ## Make the test user
 	uv run python tests/test_app/manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('test@test.com', password='test')"
 
-seed_data: ## Seed database with sample data (medium dataset)
-	@printf "$(CYAN)Seeding database with sample data$(COFF)\n"
-	uv run python tests/test_app/manage.py migrate
-	uv run python tests/test_app/manage.py seed_data --clear
-
-seed_small: ## Seed database with small dataset (fast)
-	@printf "$(CYAN)Seeding database with small dataset$(COFF)\n"
-	uv run python tests/test_app/manage.py migrate
-	uv run python tests/test_app/manage.py seed_data --small --clear
-
-seed_large: ## Seed database with large dataset (comprehensive testing)
-	@printf "$(CYAN)Seeding database with large dataset$(COFF)\n"
-	uv run python tests/test_app/manage.py migrate
-	uv run python tests/test_app/manage.py seed_data --large --clear
-
 build: ## Build the package
 	uv build --no-sources
 
@@ -77,9 +62,9 @@ version-prerelease: ## Bump to next prerelease (for pre-release workflow)
 	uv version --bump patch --bump alpha --frozen
 
 
-download_bootswatch_css: ## Download the Bootswatch CSS files
+download_bootswatch_css: ## Download the Bootswatch CSS and source map files
 	for theme in default brite cerulean cosmo cyborg darkly flatly journal litera lumen lux materia minty morph pulse quartz sandstone simplex sketchy slate solar spacelab superhero united vapor yeti zephyr; do \
 		mkdir -p jazzmin/static/vendor/bootswatch/$${theme}; \
 		curl -s https://bootswatch.com/5/$${theme}/bootstrap.min.css -o jazzmin/static/vendor/bootswatch/$${theme}/bootstrap.min.css; \
-		sed -i '/sourceMappingURL/d' jazzmin/static/vendor/bootswatch/$${theme}/bootstrap.min.css; \
+		curl -s https://bootswatch.com/5/$${theme}/bootstrap.min.css.map -o jazzmin/static/vendor/bootswatch/$${theme}/bootstrap.min.css.map; \
 	done

@@ -103,30 +103,21 @@
     }
 
     function themeChooserListeners() {
-        // Theme chooser (standard)
+        // Theme chooser (standard) — #jazzmin-theme link is always present in the DOM
         $("#jazzmin-theme-chooser").on('change', function () {
-            let $themeCSS = $('#jazzmin-theme');
+            const $themeCSS = $('#jazzmin-theme');
+            const base = $themeCSS.data('theme-base');
+            const newTheme = $(this).val();
 
-            // If we are using the default theme, there will be no theme css, just the bundled one in adminlte
-            if (!$themeCSS.length) {
-                const staticSrc = $('#adminlte-css').attr('href').split('vendor')[0]
-                $themeCSS = $('<link>').attr({
-                    'href': staticSrc + 'vendor/bootswatch/default/bootstrap.min.css',
-                    'rel': 'stylesheet',
-                    'id': 'jazzmin-theme'
-                }).appendTo('head');
+            if (newTheme === 'default') {
+                $themeCSS.removeAttr('href');
+            } else {
+                $themeCSS.attr('href', base + '/' + newTheme + '/bootstrap.min.css');
             }
 
-            const currentSrc = $themeCSS.attr('href');
-            const currentTheme = currentSrc.split('/')[4];
-            let newTheme = $(this).val();
-
-            $themeCSS.attr('href', currentSrc.replace(currentTheme, newTheme));
-
-            $body.removeClass (function (index, className) {
-                return (className.match (/(^|\s)theme-\S+/g) || []).join(' ');
-            });
-            $body.addClass('theme-' + newTheme);
+            $body.removeClass(function (index, className) {
+                return (className.match(/(^|\s)theme-\S+/g) || []).join(' ');
+            }).addClass('theme-' + newTheme);
 
             window.ui_changes['theme'] = newTheme;
         });

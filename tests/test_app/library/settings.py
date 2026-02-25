@@ -216,6 +216,8 @@ JAZZMIN_SETTINGS: Dict[str, Any] = {
     "custom_js": None,
     # Whether to show the UI customizer on the sidebar
     "show_ui_builder": False,
+    # Whether to show the theme chooser dropdown in the top navbar
+    "show_theme_chooser": True,
     ###############
     # Change view #
     ###############

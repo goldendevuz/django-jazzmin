@@ -59,6 +59,7 @@ below.
 ### Available themes
 
 - default (standard Bootstrap-based theme)
+- brite [preview](https://bootswatch.com/brite/)
 - cerulean [preview](https://bootswatch.com/cerulean/)
 - cosmo [preview](https://bootswatch.com/cosmo/)
 - cyborg [preview](https://bootswatch.com/cyborg/)
