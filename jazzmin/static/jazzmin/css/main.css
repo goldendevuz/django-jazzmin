@@ -437,7 +437,7 @@ html[data-bs-theme="dark"] .selector select option:checked {
 }
 
 #jazzy-actions .object-tools li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
 }
 
 #jazzy-actions .object-tools li a {
