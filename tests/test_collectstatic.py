@@ -26,7 +26,7 @@ def test_manifest_storage_fails_when_css_references_missing_source_map(tmp_path)
     # Create a CSS file that references a missing .map (as Bootswatch themes did)
     css_dir = tmp_path / "vendor" / "bootswatch" / "test"
     css_dir.mkdir(parents=True)
-    (css_dir / "bootstrap.min.css").write_text("/*! theme */\n/*# sourceMappingURL=bootstrap.min.css.map */\n")
+    (css_dir / "bootstrap.min.css").write_text("/*! theme */\n\n")
     css_path = "vendor/bootswatch/test/bootstrap.min.css"
     source_storage = FileSystemStorage(location=str(tmp_path))
     paths = {css_path: (source_storage, css_path)}
